@@ -1,0 +1,13 @@
+[run]
+source = /opt/odoo/dija-addons/predict_revenue
+omit =
+    */tests/*
+    */__init__.py
+    */migrations/*
+
+[report]
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    raise NotImplementedError
+    pass

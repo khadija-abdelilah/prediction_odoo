@@ -1,0 +1,9 @@
+.git
+.idea
+.vscode
+/odoo/
+tests/
+odoo_tests/
+chart/
+resources/
+talend/

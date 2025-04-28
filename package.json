@@ -1,0 +1,21 @@
+{
+  "name": "dija",
+  "version": "1.0.0",
+  "description": "Projet d'intégration sur Odoo 13.0 CE",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.smile.fr:odoo-newcomers/dija.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.27.0",
+    "@eslint/js": "^9.24.0",
+    "globals": "^16.0.0"
+  }
+}

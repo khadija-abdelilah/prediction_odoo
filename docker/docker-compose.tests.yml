@@ -1,0 +1,21 @@
+version: '3'
+services:
+    odoo:
+        entrypoint: [ "/bin/bash", "entrypoint.sh" ]
+        environment:
+            - CFG_FILE=config/odoo-test.conf
+            - DB_NAME=${DB_NAME:-dija_test}
+            - ADMIN_PWD=superadmin
+            - TEST=1
+            - TEST_MODULES=predict_revenue
+            - ODOO_ARGS=--init=product,project,predict_revenue
+
+        volumes:
+            - test-volume:/opt/odoo/odoo_tests:rw
+volumes:
+    test-volume:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: "$PWD/odoo_tests"

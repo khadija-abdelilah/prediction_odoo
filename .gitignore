@@ -1,0 +1,17 @@
+.idea
+.project
+.pydevproject
+.settings
+.vscode/*
+!.vscode/launch.json
+*.pyc
+*.pyo
+*~
+/*server.conf
+/odoo/
+/odoo_tests/
+/test-volume/
+/tests/
+enterprise/.*
+server/.*
+talend/

@@ -1,0 +1,10 @@
+phonenumbers==8.13.55
+astor==0.8.1
+workalendar
+xmltodict
+ipdb
+coverage
+zeep
+psutil
+jinja2
+rjsmin

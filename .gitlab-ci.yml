@@ -1,0 +1,87 @@
+stages:
+  - build_env
+  - build
+  - quality_test
+  - odoo_test
+  - deploy
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+  IMAGE_NAME: dija-${CI_COMMIT_REF_SLUG}
+  IMAGE_URL: registry.smile.fr/dija/$IMAGE_NAME
+
+flake8:
+  stage: quality_test
+  allow_failure: true
+  tags:
+    - docker
+  image: python:3.10
+  before_script:
+    - pip install flake8 flake8-builtins flake8-cognitive-complexity flake8-comprehensions flake8-deprecated flake8_formatter_junit_xml flake8-debugger
+  script:
+    - flake8 --version
+    # Exclude cloud_snapshots file
+    - flake8 --format junit-xml $PATH_TO_ANALYSE > flake8.xml
+  artifacts:
+    when: always
+    reports:
+      junit: flake8.xml
+
+test:
+  stage: odoo_test
+  image: docker:26
+  services:
+    - docker:26-dind
+  tags:
+    - galaxy-dind-shared
+  script:
+    # Need to mkdir because of the volumes in docker-compose.yml
+    - mkdir -p odoo
+    - mkdir -m 777 odoo_tests
+    # Run the tests with docker-compose and check exit status
+    - set -e  # Exit immediately if any command exits with a non-zero status
+    - docker-compose -f docker/docker-compose.yml -f docker/docker-compose.tests.yml up --build --renew-anon-volumes --force-recreate --exit-code-from odoo || { echo "Tests failed in docker-compose. Check logs for details." >&2; exit 1; }
+
+    # Check for errors in test XML reports
+    - if ls odoo_tests/*.xml 1> /dev/null 2>&1; then
+        for file in odoo_tests/*.xml; do
+          grep -q '<failure\|<error' "$file" && { echo "Error in $file" >&2; exit 1; };
+        done;
+        echo "0 error in test reports." >&2;
+      else
+        echo "Test report files not found. Job failed." >&2;
+        exit 1;
+      fi
+
+    # Ensure coverage files exist; fail if not present
+    - if [ ! -f odoo_tests/coverage.xml ]; then
+        echo "Coverage report not found. Job failed." >&2;
+        exit 1;
+      fi
+
+    # Check for warnings in the logs, exit a specific code that's handled in
+    # allow_failure
+    - docker logs dija_odoo > output.log
+    - if grep "WARNING" output.log | grep -v "Email sending not enabled" | grep -v "odoo.addons.smile_upgrade.models" | grep -v "odoo.tests.result"; then
+        echo "Warnings found in logs:";
+        grep "WARNING" output.log | grep -v "Email sending not enabled" | grep -v "odoo.addons.smile_upgrade.models" | grep -v "odoo.tests.result";
+        exit 33;
+      else
+        echo "No warnings found.";
+      fi
+
+  allow_failure:
+      exit_codes:
+          - 33
+
+  coverage: '/Code coverage ([0-9]{1,3})/'
+  artifacts:
+      paths:
+          - odoo_tests/htmlcov/*
+          - odoo_tests/*.xml
+      when: always
+      reports:
+          junit: odoo_tests/*.xml
+          coverage_report:
+              coverage_format: cobertura
+              path: odoo_tests/coverage.xml

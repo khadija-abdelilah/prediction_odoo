@@ -1,0 +1,64 @@
+version: '3'
+services:
+  odoo:
+    container_name: dija-odoo
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - ODOO_COMMIT=${ODOO_COMMIT}
+        - BASE_IMAGE_REF=${BASE_IMAGE_REF:?Please set ODOO_VERSION in .env file}
+        - CFG_FILE=config/odoo.conf
+    entrypoint: [ "/bin/bash", "entrypoint.sh" ]
+    command: server/odoo-bin -c config/odoo.conf ${ODOO_ARGS}
+    environment:
+      - SERVER_WIDE_MODULES=${SERVER_WIDE_MODULES}
+      - CFG_FILE=config/odoo.conf
+      - ODOO_ARGS=${ODOO_ARGS}
+    ports:
+      - "8070:8069"
+      - "5678:5678"
+    stdin_open: true
+    tty: true
+    volumes:
+      - ../config:/opt/odoo/config:ro
+      - ../extra-addons:/opt/odoo/extra-addons:ro
+      - ../dija-addons:/opt/odoo/dija-addons:ro
+      - ../server:/opt/odoo/server:ro
+      - ../test-addons:/opt/odoo/test-addons:ro
+      - ../upgrades:/opt/odoo/upgrades:ro
+      - odoo_data:/var/lib/odoo:rw
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: curl --fail http://localhost:8070/web/login || exit 1
+      interval: 10s
+      timeout: 300s
+      retries: 30
+
+  db:
+    container_name: dija-db
+    image: postgres:14
+    ports:
+      - 5438:5432
+    environment:
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_DB=odoo
+    volumes:
+      - data_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: pg_isready -U odoo -d odoo
+      interval: 2s
+      timeout: 5s
+      retries: 30
+
+  mailcatcher:
+    image: dockage/mailcatcher:0.8.2
+    ports:
+      - "1084:1080"
+
+volumes:
+  odoo_data:
+  data_postgres:

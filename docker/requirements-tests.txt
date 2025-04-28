@@ -1,0 +1,25 @@
+coverage
+responses
+unittest-xml-reporting
+websocket-client
+babel
+pytz
+werkzeug==2.2.3
+passlib
+psycopg2-binary
+decorator
+polib
+PyPDF2
+reportlab
+num2words
+python-dateutil
+lxml_html_clean>=0.1.1
+# testing tools
+coverage
+responses
+unittest-xml-reporting
+websocket-client
+xmlrunner
+zeep>=4.1.0
+psutil==5.9.5
+jinja2==3.1.2
