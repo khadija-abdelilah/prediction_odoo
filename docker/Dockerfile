@@ -28,16 +28,6 @@ COPY ./requirements.txt /tmp/requirements.txt
 RUN pip3 install --upgrade pip && \
     pip3 install --no-cache-dir -r /tmp/requirements.txt
 
-# Additional required ML packages
-RUN pip3 install --no-cache-dir \
-    joblib==1.3.2 \
-    scikit-learn==1.3.2 \
-    numpy==1.24.4 \
-    pandas==2.0.3 \
-    lightgbm==4.1.0 \
-    scipy==1.11.2 \
-    threadpoolctl==3.2.0
-
 # Optionally install testing requirements
 COPY ./requirements-tests.txt /tmp/requirements-tests.txt
 RUN if [ "$TEST" = "1" ]; then \
@@ -52,8 +42,19 @@ RUN mkdir -p /home/odoo/.local && \
 COPY --chown=odoo:odoo . .
 
 # Setup file storage directory
-
 RUN pip3 install joblib --break-system-packages
+
+RUN pip3 install scikit-learn --break-system-packages
+
+RUN pip3 install numpy --break-system-packages
+
+RUN pip3 install lightgbm --break-system-packages
+
+RUN pip3 install scipy --break-system-packages
+
+RUN pip3 install threadpoolctl --break-system-packages
+
+RUN pip3 install pandas --break-system-packages
 
 # Final setup
 USER odoo
