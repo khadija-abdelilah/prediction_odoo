@@ -56,6 +56,9 @@ RUN pip3 install threadpoolctl --break-system-packages
 
 RUN pip3 install pandas --break-system-packages
 
+RUN pip install numpy==1.26.4 --no-cache-dir
+
+
 # Final setup
 USER odoo
 ENTRYPOINT ["/bin/bash", "entrypoint.sh"]
