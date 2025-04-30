@@ -7,6 +7,7 @@ import pandas as pd
 import numpy as np
 import joblib
 import warnings
+from datetime import datetime
 
 class PredictRevenueDashboard(models.Model):
     _name = 'predict.revenue.dashboard'
@@ -67,7 +68,30 @@ class PredictRevenueDashboard(models.Model):
                     warnings.simplefilter("ignore", UserWarning)
                     prediction = pipeline.predict(sample)
 
-                self.predicted_revenue = float(prediction[0])
+                predicted_quantity = float(prediction[0])
+                self.predicted_revenue = predicted_quantity
+
+                # Save or update prediction in history
+                history_model = self.env['predict.revenue.history']
+                existing_record = history_model.search([
+                    ('product_id', '=', self.product_id.id),
+                    ('predict_year', '=', self.predict_year),
+                    ('predict_month', '=', self.predict_month)
+                ], limit=1)
+
+                if existing_record:
+                    existing_record.write({
+                        'predicted_quantity': predicted_quantity,
+                        'prediction_date': fields.Datetime.now()
+                    })
+                else:
+                    history_model.create({
+                        'product_id': self.product_id.id,
+                        'predict_year': self.predict_year,
+                        'predict_month': self.predict_month,
+                        'predicted_quantity': predicted_quantity,
+                        'prediction_date': fields.Datetime.now()
+                    })
 
             except Exception as e:
                 raise UserError(f"Erreur prédiction locale : {str(e)}")

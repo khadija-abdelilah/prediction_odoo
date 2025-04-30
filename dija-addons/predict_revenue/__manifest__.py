@@ -11,6 +11,8 @@
     'data': [
         'security/ir.model.access.csv',
         'views/predict_revenue_dashboard_view.xml',
+        'views/predict_revenue_history_view.xml',
+
     ],
     'installable': True,
     'application': True,

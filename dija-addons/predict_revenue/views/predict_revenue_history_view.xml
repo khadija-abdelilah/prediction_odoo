@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Search View -->
+    <record id="view_predict_revenue_history_search" model="ir.ui.view">
+        <field name="name">predict.revenue.history.search</field>
+        <field name="model">predict.revenue.history</field>
+        <field name="arch" type="xml">
+            <search string="Recherche Historique">
+                <field name="product_id"/>
+                <field name="predict_year"/>
+                <field name="predict_month"/>
+                <field name="prediction_date"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_product" string="Produit" context="{'group_by': 'product_id'}"/>
+                    <filter name="group_by_year" string="Année" context="{'group_by': 'predict_year'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Graph View -->
+    <record id="view_predict_revenue_history_graph" model="ir.ui.view">
+        <field name="name">predict.revenue.history.graph</field>
+        <field name="model">predict.revenue.history</field>
+        <field name="arch" type="xml">
+            <graph string="Historique des Prédictions" type="bar">
+                <field name="predict_month"/>
+                <field name="predicted_quantity" type="measure"/>
+                <field name="product_id" type="row"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- List View -->
+    <record id="view_predict_revenue_history_list" model="ir.ui.view">
+        <field name="name">predict.revenue.history.list</field>
+        <field name="model">predict.revenue.history</field>
+        <field name="arch" type="xml">
+            <list string="Historique des Prédictions">
+                <field name="product_id"/>
+                <field name="predict_year"/>
+                <field name="predict_month"/>
+                <field name="predicted_quantity"/>
+                <field name="prediction_date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_predict_revenue_history_dashboard" model="ir.actions.act_window">
+        <field name="name">📊 Historique des Prédictions</field>
+        <field name="res_model">predict.revenue.history</field>
+        <field name="view_mode">graph,list</field>
+        <field name="search_view_id" ref="view_predict_revenue_history_search"/>
+        <field name="help" type="html">
+            <p>Cette vue montre l'historique des prédictions de quantités par produit et mois.</p>
+        </field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_reporting_predict_revenue_history"
+              name="📊 Historique des Prédictions"
+              parent="sale.menu_sale_report"
+              action="predict_revenue.action_predict_revenue_history_dashboard"
+              sequence="21"/>
+
+</odoo>
