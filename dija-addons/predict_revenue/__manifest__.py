@@ -10,7 +10,6 @@
     'depends': ['sale', 'product',],
     'data': [
         'security/ir.model.access.csv',
-        'views/sale_order_view.xml',
         'views/predict_revenue_dashboard_view.xml',
     ],
     'installable': True,
