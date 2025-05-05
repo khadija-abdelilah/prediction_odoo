@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np
 import joblib
 import warnings
-from datetime import datetime
+import json
 
 class PredictRevenueDashboard(models.Model):
     _name = 'predict.revenue.dashboard'
@@ -22,20 +22,72 @@ class PredictRevenueDashboard(models.Model):
     )
     predicted_revenue = fields.Float(string="Quantité Prédite", readonly=True)
 
+    # Keeps the chart data JSON
+    chart_data = fields.Text(
+        string="Données du Graphique",
+        compute='_compute_chart_data',
+        help="JSON pour le graphique",
+        readonly=True
+    )
+
+    # Dummy Char field for widget rendering
+    chart_dummy = fields.Char(
+        string="Graphique",
+        compute="_compute_chart_dummy",
+        help="Champ utilisé pour afficher le graphique"
+    )
+
+    @api.depends('chart_data')
+    def _compute_chart_dummy(self):
+        for rec in self:
+            # Dummy content triggers the widget – actual data is in chart_data
+            rec.chart_dummy = "display"
+
+    @api.depends('product_id')
+    def _compute_chart_data(self):
+        for record in self:
+            data = {
+                'labels': [],
+                'datasets': [{
+                    'label': 'Quantité Prédite',
+                    'data': [],
+                    'backgroundColor': [],
+                    'borderColor': []
+                }]
+            }
+            if record.product_id:
+                history = self.env['predict.revenue.history'].search([
+                    ('product_id', '=', record.product_id.id)
+                ], order='predict_year desc, predict_month desc', limit=6)
+
+                prev = None
+                for h in reversed(history):
+                    data['labels'].append(f"{h.predict_month}/{h.predict_year}")
+                    data['datasets'][0]['data'].append(h.predicted_quantity)
+
+                    if prev is None or h.predicted_quantity >= prev:
+                        bg = 'rgba(75, 192, 192, 0.5)'
+                        br = 'rgba(75, 192, 192, 1)'
+                    else:
+                        bg = 'rgba(255, 99, 132, 0.5)'
+                        br = 'rgba(255, 99, 132, 1)'
+
+                    data['datasets'][0]['backgroundColor'].append(bg)
+                    data['datasets'][0]['borderColor'].append(br)
+                    prev = h.predicted_quantity
+
+            record.chart_data = json.dumps(data)
+
     @api.onchange('product_id', 'predict_year', 'predict_month')
     def _onchange_predict_revenue(self):
         if self.product_id and self.predict_year and self.predict_month:
             try:
-                # Load model
                 model_path = os.path.join(os.path.dirname(__file__), 'ml_model/model_lgbm.pkl')
                 pipeline = joblib.load(model_path)
-
-                # Date features
                 month = int(self.predict_month)
                 year = int(self.predict_year)
                 quarter = (month - 1) // 3 + 1
 
-                # Construct sample input with proper values
                 sample_data = {
                     'Product': self.product_id.name,
                     'Product Name': self.product_id.name,
@@ -55,15 +107,8 @@ class PredictRevenueDashboard(models.Model):
                 }
 
                 sample = pd.DataFrame([sample_data])
+                sample = sample.reindex(columns=pipeline.feature_names_in_).fillna(0)
 
-                # Enforce feature column order
-                expected_columns = pipeline.feature_names_in_
-                sample = sample.reindex(columns=expected_columns)
-
-                # Optional: fill any missing values
-                sample = sample.fillna(0)
-
-                # Make prediction while suppressing harmless warnings
                 with warnings.catch_warnings():
                     warnings.simplefilter("ignore", UserWarning)
                     prediction = pipeline.predict(sample)
@@ -71,16 +116,15 @@ class PredictRevenueDashboard(models.Model):
                 predicted_quantity = float(prediction[0])
                 self.predicted_revenue = predicted_quantity
 
-                # Save or update prediction in history
                 history_model = self.env['predict.revenue.history']
-                existing_record = history_model.search([
+                existing = history_model.search([
                     ('product_id', '=', self.product_id.id),
                     ('predict_year', '=', self.predict_year),
                     ('predict_month', '=', self.predict_month)
                 ], limit=1)
 
-                if existing_record:
-                    existing_record.write({
+                if existing:
+                    existing.write({
                         'predicted_quantity': predicted_quantity,
                         'prediction_date': fields.Datetime.now()
                     })
@@ -92,6 +136,10 @@ class PredictRevenueDashboard(models.Model):
                         'predicted_quantity': predicted_quantity,
                         'prediction_date': fields.Datetime.now()
                     })
+
+                # Recompute chart JSON and widget field
+                self._compute_chart_data()
+                self._compute_chart_dummy()
 
             except Exception as e:
                 raise UserError(f"Erreur prédiction locale : {str(e)}")
