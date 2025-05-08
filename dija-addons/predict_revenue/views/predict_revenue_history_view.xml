@@ -6,14 +6,14 @@
         <field name="name">predict.revenue.history.search</field>
         <field name="model">predict.revenue.history</field>
         <field name="arch" type="xml">
-            <search string="Recherche Historique">
+            <search string="Prediction History Search">
                 <field name="product_id"/>
                 <field name="predict_year"/>
                 <field name="predict_month"/>
                 <field name="prediction_date"/>
                 <group expand="0" string="Group By">
-                    <filter name="group_by_product" string="Produit" context="{'group_by': 'product_id'}"/>
-                    <filter name="group_by_year" string="Année" context="{'group_by': 'predict_year'}"/>
+                    <filter name="group_by_product" string="Product" context="{'group_by': 'product_id'}"/>
+                    <filter name="group_by_year" string="Year" context="{'group_by': 'predict_year'}"/>
                 </group>
             </search>
         </field>
@@ -24,7 +24,7 @@
         <field name="name">predict.revenue.history.graph</field>
         <field name="model">predict.revenue.history</field>
         <field name="arch" type="xml">
-            <graph string="Historique des Prédictions" type="bar">
+            <graph string="Prediction History" type="bar">
                 <field name="predict_month"/>
                 <field name="predicted_quantity" type="measure"/>
                 <field name="product_id" type="row"/>
@@ -37,7 +37,7 @@
         <field name="name">predict.revenue.history.list</field>
         <field name="model">predict.revenue.history</field>
         <field name="arch" type="xml">
-            <list string="Historique des Prédictions">
+            <list string="Prediction History">
                 <field name="product_id"/>
                 <field name="predict_year"/>
                 <field name="predict_month"/>
@@ -49,18 +49,18 @@
 
     <!-- Action -->
     <record id="action_predict_revenue_history_dashboard" model="ir.actions.act_window">
-        <field name="name">📊 Historique des Prédictions</field>
+        <field name="name">📊 Prediction History</field>
         <field name="res_model">predict.revenue.history</field>
         <field name="view_mode">graph,list</field>
         <field name="search_view_id" ref="view_predict_revenue_history_search"/>
         <field name="help" type="html">
-            <p>Cette vue montre l'historique des prédictions de quantités par produit et mois.</p>
+            <p>This view displays the prediction history of product quantities per month.</p>
         </field>
     </record>
 
     <!-- Menu -->
     <menuitem id="menu_reporting_predict_revenue_history"
-              name="📊 Historique des Prédictions"
+              name="📊 Prediction History"
               parent="sale.menu_sale_report"
               action="predict_revenue.action_predict_revenue_history_dashboard"
               sequence="21"/>

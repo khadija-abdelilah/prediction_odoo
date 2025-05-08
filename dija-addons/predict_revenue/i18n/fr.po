@@ -1,0 +1,225 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* predict_revenue
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-08 06:50+0000\n"
+"PO-Revision-Date: 2025-05-08 06:50+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: predict_revenue
+#: model:ir.model.fields.selection,name:predict_revenue.selection__predict_revenue_dashboard__predict_month__10
+#: model:ir.model.fields.selection,name:predict_revenue.selection__predict_revenue_history__predict_month__10
+msgid "10"
+msgstr ""
+
+#. module: predict_revenue
+#: model:ir.model.fields.selection,name:predict_revenue.selection__predict_revenue_dashboard__predict_month__11
+#: model:ir.model.fields.selection,name:predict_revenue.selection__predict_revenue_history__predict_month__11
+msgid "11"
+msgstr ""
+
+#. module: predict_revenue
+#: model:ir.model.fields.selection,name:predict_revenue.selection__predict_revenue_dashboard__predict_month__12
+#: model:ir.model.fields.selection,name:predict_revenue.selection__predict_revenue_history__predict_month__12
+msgid "12"
+msgstr ""
+
+#. module: predict_revenue
+#: model:ir.model.fields.selection,name:predict_revenue.selection__predict_revenue_dashboard__predict_year__2025
+#: model:ir.model.fields.selection,name:predict_revenue.selection__predict_revenue_history__predict_year__2025
+msgid "2025"
+msgstr ""
+
+#. module: predict_revenue
+#: model:ir.model.fields.selection,name:predict_revenue.selection__predict_revenue_dashboard__predict_year__2026
+#: model:ir.model.fields.selection,name:predict_revenue.selection__predict_revenue_history__predict_year__2026
+msgid "2026"
+msgstr ""
+
+#. module: predict_revenue
+#: model_terms:ir.ui.view,arch_db:predict_revenue.view_predict_revenue_dashboard_form
+msgid ""
+"<i class=\"fa fa-info-circle me-2\"/>\n"
+"                        <strong>How to use:</strong> Select a product, a year, and a month to get a prediction.\n"
+"                        Previous predictions for this product are displayed in the graph."
+msgstr ""
+"<i class=\"fa fa-info-circle me-2\"/>\n"
+"                        <strong>Comment utiliser :</strong> Sélectionnez un produit, une année et un mois pour obtenir une prédiction.\n"
+"                        Les prédictions précédentes pour ce produit sont affichées dans le graphique."
+
+#. module: predict_revenue
+#: model_terms:ir.ui.view,arch_db:predict_revenue.view_predict_revenue_dashboard_form
+msgid ""
+"<span class=\"badge bg-success p-2 m-1\">\n"
+"                                <i class=\"fa fa-arrow-up me-1\"/> Growth\n"
+"                            </span>\n"
+"                            <span class=\"badge bg-danger p-2 m-1\">\n"
+"                                <i class=\"fa fa-arrow-down me-1\"/> Decline\n"
+"                            </span>\n"
+"                            <span class=\"badge bg-primary p-2 m-1\">\n"
+"                                <i class=\"fa fa-star me-1\"/> Current Prediction\n"
+"                            </span>"
+msgstr ""
+"<span class=\"badge bg-success p-2 m-1\">\n"
+"                                <i class=\"fa fa-arrow-up me-1\"/> Croissance\n"
+"                            </span>\n"
+"                            <span class=\"badge bg-danger p-2 m-1\">\n"
+"                                <i class=\"fa fa-arrow-down me-1\"/> Diminution\n"
+"                            </span>\n"
+"                            <span class=\"badge bg-primary p-2 m-1\">\n"
+"                                <i class=\"fa fa-star me-1\"/> Prédiction actuelle\n"
+"                            </span>"
+
+#. module: predict_revenue
+#: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_dashboard__create_uid
+#: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_history__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: predict_revenue
+#: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_dashboard__create_date
+#: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_history__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: predict_revenue
+#: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_dashboard__debug_info
+msgid "Debug Information"
+msgstr ""
+
+#. module: predict_revenue
+#: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_dashboard__display_name
+#: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_history__display_name
+msgid "Display Name"
+msgstr "Nom d’affichage"
+
+#. module: predict_revenue
+#: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_dashboard__chart_data
+msgid "Données du Graphique"
+msgstr "Données du graphique"
+
+#. module: predict_revenue
+#: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_dashboard__chart_dummy
+msgid "Graphique"
+msgstr ""
+
+#. module: predict_revenue
+#: model_terms:ir.ui.view,arch_db:predict_revenue.view_predict_revenue_history_search
+msgid "Group By"
+msgstr "Regrouper par"
+
+#. module: predict_revenue
+#: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_dashboard__id
+#: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_history__id
+msgid "ID"
+msgstr ""
+
+#. module: predict_revenue
+#: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_dashboard__write_uid
+#: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_history__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: predict_revenue
+#: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_dashboard__write_date
+#: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_history__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: predict_revenue
+#: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_dashboard__predict_month
+#: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_history__predict_month
+msgid "Month"
+msgstr "Mois"
+
+#. module: predict_revenue
+#: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_dashboard__predicted_revenue
+#: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_history__predicted_quantity
+msgid "Predicted Quantity"
+msgstr "Quantité prédite"
+
+#. module: predict_revenue
+#: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_history__prediction_date
+msgid "Prediction Date"
+msgstr "Date de prédiction"
+
+#. module: predict_revenue
+#: model_terms:ir.ui.view,arch_db:predict_revenue.view_predict_revenue_dashboard_form
+#: model_terms:ir.ui.view,arch_db:predict_revenue.view_predict_revenue_history_graph
+#: model_terms:ir.ui.view,arch_db:predict_revenue.view_predict_revenue_history_list
+msgid "Prediction History"
+msgstr "Historique des prédictions"
+
+#. module: predict_revenue
+#: model_terms:ir.ui.view,arch_db:predict_revenue.view_predict_revenue_history_search
+msgid "Prediction History Search"
+msgstr "Recherche de l’historique des prédictions"
+
+#. module: predict_revenue
+#: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_dashboard__product_id
+#: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_history__product_id
+#: model_terms:ir.ui.view,arch_db:predict_revenue.view_predict_revenue_history_search
+msgid "Product"
+msgstr "Produit"
+
+#. module: predict_revenue
+#: model_terms:ir.ui.view,arch_db:predict_revenue.view_predict_revenue_dashboard_form
+msgid "Product Demand Forecast"
+msgstr "Prévision de la demande par produit"
+
+#. module: predict_revenue
+#: model_terms:ir.ui.view,arch_db:predict_revenue.view_predict_revenue_dashboard_form
+msgid "Revenue Prediction"
+msgstr "Prédiction des quantités"
+
+#. module: predict_revenue
+#: model:ir.model,name:predict_revenue.model_predict_revenue_dashboard
+msgid "Revenue Prediction Dashboard"
+msgstr "Tableau de bord de prédiction des quantités"
+
+#. module: predict_revenue
+#: model:ir.model,name:predict_revenue.model_predict_revenue_history
+msgid "Revenue Prediction History"
+msgstr "Historique de prédiction des quantités"
+
+#. module: predict_revenue
+#. odoo-javascript
+#: code:addons/predict_revenue/static/src/xml/chart_template.xml:0
+msgid "Select a product and a period to display predictions."
+msgstr "Sélectionnez un produit et une période pour afficher les prédictions."
+
+#. module: predict_revenue
+#: model_terms:ir.actions.act_window,help:predict_revenue.action_predict_revenue_history_dashboard
+msgid ""
+"This view displays the prediction history of product quantities per month."
+msgstr ""
+"Cette vue affiche l’historique des quantités prédites par produit et par "
+"mois."
+
+#. module: predict_revenue
+#: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_dashboard__predict_year
+#: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_history__predict_year
+#: model_terms:ir.ui.view,arch_db:predict_revenue.view_predict_revenue_history_search
+msgid "Year"
+msgstr "Année"
+
+#. module: predict_revenue
+#: model:ir.actions.act_window,name:predict_revenue.action_predict_revenue_dashboard
+#: model:ir.ui.menu,name:predict_revenue.menu_reporting_predict_revenue
+msgid "📈 Revenue Prediction"
+msgstr "📈 Prédiction des quantités"
+
+#. module: predict_revenue
+#: model:ir.actions.act_window,name:predict_revenue.action_predict_revenue_history_dashboard
+#: model:ir.ui.menu,name:predict_revenue.menu_reporting_predict_revenue_history
+msgid "📊 Prediction History"
+msgstr "📊 Historique des prédictions"

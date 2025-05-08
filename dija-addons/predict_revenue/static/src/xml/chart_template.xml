@@ -6,7 +6,7 @@
             <div t-if="!props.record || !props.record.data.chart_data" class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-light bg-opacity-75">
                 <div class="text-center text-muted">
                     <i class="fa fa-bar-chart fa-3x mb-2"></i>
-                    <p>Sélectionnez un produit et une période pour afficher les prédictions.</p>
+                    <p>Select a product and a period to display predictions.</p>
                 </div>
             </div>
         </div>
