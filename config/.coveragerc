@@ -1,8 +1,10 @@
 [run]
 source = /opt/odoo/dija-addons/predict_revenue
+
+
 omit =
-    */tests/*
     */__init__.py
+    */__manifest__.py
     */migrations/*
 
 [report]

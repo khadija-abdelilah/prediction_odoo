@@ -13,7 +13,7 @@ ODOO_CMD=${ODOO_CMD:-python3 server/odoo-bin -c $CFG_FILE}
 # TEST_TAGS: Automatically generate a comma-separated list of modules to test.
 # removes duplicates, sorts them, and joins them into a comma-separated string.
 
-TEST_TAGS=${TEST_TAGS:-$(find . -name 'Prediction_*' | cut -d '/' -f 3 | sort | uniq  | tr -s '\n' ',')}
+TEST_TAGS=${TEST_TAGS:-$(find . -name 'dija-*' | cut -d '/' -f 3 | sort | uniq  | tr -s '\n' ',')}
 
 if [ $TEST_MODULES ]; then
   INSTALL_TEST_MODULES="-i $TEST_MODULES"
@@ -35,7 +35,15 @@ if [ $TEST = 1 ]; then
   rm -rf odoo_tests/*
   mkdir -p odoo_tests
 
-  coverage run --rcfile=config/.coveragerc server/odoo-bin -c config/odoo-test.conf --test-tags "$TEST_TAGS" --max-cron-threads=0 --stop-after-init
+  coverage run --rcfile=config/.coveragerc server/odoo-bin -c config/odoo-test.conf \
+    --max-cron-threads=0 \
+    --stop-after-init \
+    --test-enable \
+    --log-level=test \
+    -d $DB_NAME \
+    --load=$SERVER_WIDE_MODULES \
+    --test-tags="$TEST_MODULES" \
+    -u $TEST_MODULES
 
   # Generate coverage reports
   echo "Generating coverage reports..."
