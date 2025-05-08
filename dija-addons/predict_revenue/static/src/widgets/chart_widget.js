@@ -17,11 +17,11 @@ export class PredictionChartField extends PredictionChart {
 
     setup() {
         super.setup();
-        // Field-specific setup if needed in the future
+        // Additional field-specific setup can be done here
     }
 }
 
-// Register the widget in the fields registry
+// Register the widget in the field registry
 registry.category("fields").add("prediction_chart", {
     component: PredictionChartField,
 });

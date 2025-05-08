@@ -27,12 +27,9 @@ export class PredictionChart extends Component {
 
         onMounted(() => {
             this.renderChart();
-
-            // Re-render chart when window is resized
             window.addEventListener('resize', this.resizeListener);
         });
 
-        // Clean up event listener when component is unmounted
         onWillUnmount(() => {
             window.removeEventListener('resize', this.resizeListener);
             if (this.state.chart) {
@@ -42,7 +39,6 @@ export class PredictionChart extends Component {
     }
 
     handleResize() {
-        // Debounce resize event
         if (this.resizeTimeout) {
             clearTimeout(this.resizeTimeout);
         }
@@ -54,23 +50,17 @@ export class PredictionChart extends Component {
         }, 250);
     }
 
-    /**
-     * Parse chart data from the record
-     * Falls back to sample data if no data is available
-     */
     getChartData() {
         let chartData;
 
         try {
-            // Get chart data from record field
             if (this.props.record && this.props.record.data.chart_data) {
                 chartData = JSON.parse(this.props.record.data.chart_data);
             } else {
-                // Fallback sample data if no record data available
                 chartData = {
                     labels: ["01/2025", "02/2025", "03/2025"],
                     datasets: [{
-                        label: "Quantité Prédite",
+                        label: "Predicted Quantity",
                         data: [120, 150, 180],
                         backgroundColor: [
                             'rgba(75, 192, 192, 0.5)',
@@ -87,13 +77,11 @@ export class PredictionChart extends Component {
                 };
             }
 
-            // Highlight the most recent prediction
             if (chartData.datasets[0].data.length > 0) {
                 const lastIndex = chartData.datasets[0].data.length - 1;
 
-                // Create a highlight dataset for the most recent prediction
                 chartData.datasets.push({
-                    label: "Prédiction Actuelle",
+                    label: "Current Prediction",
                     data: Array(lastIndex).fill(null).concat([chartData.datasets[0].data[lastIndex]]),
                     backgroundColor: 'rgba(54, 162, 235, 0.8)',
                     borderColor: 'rgba(54, 162, 235, 1)',
@@ -106,9 +94,9 @@ export class PredictionChart extends Component {
         } catch (error) {
             console.error("Error parsing chart data:", error);
             return {
-                labels: ["Erreur"],
+                labels: ["Error"],
                 datasets: [{
-                    label: "Données non disponibles",
+                    label: "Data not available",
                     data: [0],
                     backgroundColor: 'rgba(255, 99, 132, 0.5)'
                 }]
@@ -116,9 +104,6 @@ export class PredictionChart extends Component {
         }
     }
 
-    /**
-     * Render the Chart.js visualization
-     */
     renderChart() {
         if (!this.canvasRef.el || !window.Chart) {
             console.warn("Canvas reference or Chart.js not available");
@@ -128,12 +113,10 @@ export class PredictionChart extends Component {
         const ctx = this.canvasRef.el.getContext("2d");
         const chartData = this.getChartData();
 
-        // Destroy existing chart if it exists
         if (this.state.chart) {
             this.state.chart.destroy();
         }
 
-        // Create the enhanced chart
         this.state.chart = new Chart(ctx, {
             type: "bar",
             data: chartData,
@@ -146,19 +129,18 @@ export class PredictionChart extends Component {
                     },
                     tooltip: {
                         callbacks: {
-                            title: function(tooltipItems) {
-                                return `Période: ${tooltipItems[0].label}`;
+                            title: function (tooltipItems) {
+                                return `Period: ${tooltipItems[0].label}`;
                             },
-                            label: function(context) {
+                            label: function (context) {
                                 const label = context.dataset.label || '';
                                 const value = context.parsed.y || 0;
-                                return `${label}: ${value.toFixed(2)} unités`;
+                                return `${label}: ${value.toFixed(2)} units`;
                             },
-                            footer: function(tooltipItems) {
+                            footer: function (tooltipItems) {
                                 const dataIndex = tooltipItems[0].dataIndex;
                                 const datasetIndex = tooltipItems[0].datasetIndex;
 
-                                // Only show growth info for the main dataset
                                 if (datasetIndex !== 0 || dataIndex === 0) {
                                     return null;
                                 }
@@ -168,13 +150,13 @@ export class PredictionChart extends Component {
                                 const previous = dataset.data[dataIndex - 1];
                                 const change = ((current - previous) / previous * 100).toFixed(2);
 
-                                return `Évolution: ${change}% par rapport à la période précédente`;
+                                return `Growth: ${change}% compared to previous period`;
                             }
                         }
                     },
                     title: {
                         display: true,
-                        text: 'Prévisions de Quantité par Période',
+                        text: 'Quantity Forecast by Period',
                         font: {
                             size: 16
                         }
@@ -185,13 +167,13 @@ export class PredictionChart extends Component {
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: 'Quantité Prédite'
+                            text: 'Predicted Quantity'
                         }
                     },
                     x: {
                         title: {
                             display: true,
-                            text: 'Période'
+                            text: 'Period'
                         }
                     }
                 },
