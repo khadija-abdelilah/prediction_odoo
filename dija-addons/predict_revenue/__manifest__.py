@@ -1,12 +1,12 @@
 {
-    'name': 'Predict Revenue',
+    'name': 'Smile Prediction',
     'version': '1.0',
     'category': 'Sales',
     'summary': 'Predicts revenue using a machine learning model.',
-    'description': 'Adds a button to sales orders to predict revenue using an external AI API.',
+    'description': 'Predict monthly product order quantities using a trained LightGBM model. Includes automated forecasting, historical tracking, and chart visualization.',
     'author': 'Dija',
     'license': 'LGPL-3',
-    'depends': ['sale', 'product'],
+    'depends': ['sale_management', 'product'],
     'data': [
         'security/ir.model.access.csv',
         'views/predict_revenue_dashboard_view.xml',

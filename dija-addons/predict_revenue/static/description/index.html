@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="Docutils" />
+    <title>Predict Revenue</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+    <div class="document">
+        <p>
+            <img src="https://img.shields.io/badge/licence-AGPL--3-blue.svg" alt="License: AGPL-3" />
+            <a class="reference external" href="https://github.com/Smile-SA/odoo_addons/tree/18.0/predict_revenue">
+                <img alt="Smile-SA/odoo_addons" src="https://img.shields.io/badge/github-Smile--SA%2Fodoo_addons-lightgray.png?logo=github" />
+            </a>
+        </p>
+
+        <div class="section" id="predict-revenue">
+            <h1>Predict Revenue</h1>
+
+            <p>This module provides advanced sales forecasting capabilities using machine learning to predict future product quantities and revenue.</p>
+
+            <p>The prediction system is based on a trained LightGBM model that analyzes historical data and product characteristics to generate accurate forecasts for upcoming months and years.</p>
+
+            <p>Key features of this module include:</p>
+            <ul>
+                <li>Revenue prediction dashboard for visualizing forecasts</li>
+                <li>Historical tracking of all predictions</li>
+                <li>Interactive charts showing prediction trends</li>
+                <li>Machine learning integration with Odoo's product catalog</li>
+                <li>Support for seasonal patterns and product-specific characteristics</li>
+            </ul>
+
+            <p><strong>Table of contents</strong></p>
+            <div class="contents local topic" id="contents">
+                <ul class="simple">
+                    <li><a class="reference internal" href="#usage" id="toc-entry-1">Usage</a></li>
+                    <li><a class="reference internal" href="#technical-details" id="toc-entry-2">Technical Details</a></li>
+                    <li><a class="reference internal" href="#known-issues" id="toc-entry-3">Known issues</a></li>
+                    <li><a class="reference internal" href="#bug-tracker" id="toc-entry-4">Bug Tracker</a></li>
+                    <li><a class="reference internal" href="#credits" id="toc-entry-5">Credits</a>
+                        <ul>
+                            <li><a class="reference internal" href="#contributors" id="toc-entry-6">Contributors</a></li>
+                            <li><a class="reference internal" href="#maintainer" id="toc-entry-7">Maintainer</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="section" id="usage">
+                <h2><a href="#toc-entry-1">Usage</a></h2>
+                <p>The Predict Revenue module allows you to forecast future product quantities and revenue with a few simple steps:</p>
+                <ol>
+                    <li>Navigate to the Revenue Prediction Dashboard:
+                        <div class="image">
+                            <img src="dashboard_menu.png" alt="Navigate to dashboard" style="width: 850px;" />
+                        </div>
+                    </li>
+                    <li>Select a product for which you want to generate a prediction:
+                        <div class="image">
+                            <img src="select_product.png" alt="Select product" style="width: 850px;" />
+                        </div>
+                    </li>
+                    <li>Choose the year and month for your prediction:
+                        <div class="image">
+                            <img src="select_period.png" alt="Select period" style="width: 850px;" />
+                        </div>
+                    </li>
+                    <li>The system automatically generates a prediction based on historical data and product characteristics:
+                        <div class="image">
+                            <img src="prediction_result.png" alt="Prediction result" style="width: 850px;" />
+                        </div>
+                    </li>
+                    <li>View the prediction history chart to analyze trends:
+                        <div class="image">
+                            <img src="prediction_chart.png" alt="Prediction chart" style="width: 850px;" />
+                        </div>
+                    </li>
+                    <li>Access detailed prediction history for any product:
+                        <div class="image">
+                            <img src="prediction_history.png" alt="Prediction history" style="width: 850px;" />
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="section" id="technical-details">
+                <h2><a href="#toc-entry-2">Technical Details</a></h2>
+                <p>The prediction system uses a sophisticated machine learning pipeline:</p>
+                <ul>
+                    <li>LightGBM model optimized for time series forecasting</li>
+                    <li>Feature engineering including:
+                        <ul>
+                            <li>Product characteristics (category, type, pricing)</li>
+                            <li>Temporal features (month, year, seasonality)</li>
+                            <li>Historical lag features (previous predictions)</li>
+                            <li>Seasonal indicators (holiday periods)</li>
+                        </ul>
+                    </li>
+                    <li>Automatic model loading and prediction generation</li>
+                    <li>History tracking for all predictions</li>
+                    <li>Interactive visualization with color-coded trends</li>
+                </ul>
+            </div>
+
+            <div class="section" id="known-issues">
+                <h2><a href="#toc-entry-3">Known issues</a></h2>
+                <p>The prediction model requires sufficient historical data to generate accurate forecasts. For new products with limited history, predictions may be less reliable.</p>
+                <p>The model must be periodically retrained to maintain accuracy as new data becomes available.</p>
+            </div>
+
+            <div class="section" id="bug-tracker">
+                <h2><a href="#toc-entry-4">Bug Tracker</a></h2>
+                <p>Bugs are tracked on <a class="reference external" href="https://github.com/Smile-SA/odoo_addons/issues">GitHub Issues</a>.
+                In case of trouble, please check there if your issue has already been reported.
+                If you spotted it first, help us smash it by providing detailed and welcomed feedback
+                <a class="reference external" href="https://github.com/Smile-SA/odoo_addons/issues/new?body=module:%20predict_revenue%0Aversion:%2013.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">here</a>.</p>
+                <p>Do not contact contributors directly about support or help with technical issues.</p>
+            </div>
+
+            <div class="section" id="credits">
+                <h2><a href="#toc-entry-5">Credits</a></h2>
+                <div class="section" id="contributors">
+                    <h3><a href="#toc-entry-6">Contributors</a></h3>
+                    <ul>
+                        <li>Smile SA Development Team</li>
+                        <li>Khadija ABDELILAH</li>
+                    </ul>
+                </div>
+
+                <div class="section" id="maintainer">
+                    <h3><a href="#toc-entry-7">Maintainer</a></h3>
+                    <p>This module is maintained by Smile SA.</p>
+                    <p>Since 1991 Smile has been a pioneer of technology and also the European expert in open source solutions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
