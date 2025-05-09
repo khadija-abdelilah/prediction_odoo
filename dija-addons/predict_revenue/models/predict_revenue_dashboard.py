@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from odoo import models, fields, api
 from odoo.exceptions import UserError
 
@@ -70,10 +71,12 @@ class PredictRevenueDashboard(models.Model):
                     prev = val
             rec.chart_data = json.dumps(data)
 
-    @api.onchange('product_id', 'predict_year', 'predict_month')
-    def _onchange_predict_revenue(self):
+    def predict_revenue(self):
+        """Méthode pour prédire les revenus lorsque le bouton est cliqué"""
+        self.ensure_one()
+
         if not (self.product_id and self.predict_year and self.predict_month):
-            return
+            raise UserError("Veuillez sélectionner un produit, une année et un mois pour faire une prédiction.")
 
         # 1. Charger le pipeline
         model_path = os.path.join(
@@ -235,6 +238,11 @@ class PredictRevenueDashboard(models.Model):
         # 8. Rafraîchir le courbe
         self._compute_chart_data()
         self._compute_chart_dummy()
+
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        }
 
 
 class PredictRevenueHistory(models.Model):
