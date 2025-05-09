@@ -57,7 +57,7 @@ services:
     image: dockage/mailcatcher:0.8.2
     ports:
 
-    - "2084:1080"
+    - "1084:1080"
 volumes:
   odoo_data:
   data_postgres:
