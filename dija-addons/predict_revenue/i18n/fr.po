@@ -104,7 +104,7 @@ msgstr "Nom d’affichage"
 
 #. module: predict_revenue
 #: model:ir.model.fields,field_description:predict_revenue.field_predict_revenue_dashboard__chart_data
-msgid "Données du Graphique"
+msgid "Graphic Data"
 msgstr "Données du graphique"
 
 #. module: predict_revenue

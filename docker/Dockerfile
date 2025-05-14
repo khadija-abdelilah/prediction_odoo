@@ -1,5 +1,6 @@
 ARG BASE_IMAGE_REF=
-FROM ${BASE_IMAGE_REF}
+FROM registry.smile.fr/bs_devops/env_odoo:18.0_bookworm
+
 
 ARG TEST=0
 ENV TEST=$TEST
@@ -42,22 +43,16 @@ RUN mkdir -p /home/odoo/.local && \
 COPY --chown=odoo:odoo . .
 
 # Setup file storage directory
-RUN pip3 install joblib --break-system-packages
+RUN pip3 install --break-system-packages --no-cache-dir \
+    joblib \
+    scikit-learn \
+    numpy==1.26.4 \
+    lightgbm \
+    scipy \
+    threadpoolctl \
+    pandas
 
-RUN pip3 install scikit-learn --break-system-packages
-
-RUN pip3 install numpy --break-system-packages
-
-RUN pip3 install lightgbm --break-system-packages
-
-RUN pip3 install scipy --break-system-packages
-
-RUN pip3 install threadpoolctl --break-system-packages
-
-RUN pip3 install pandas --break-system-packages
-
-RUN pip install numpy==1.26.4 --no-cache-dir
-
+RUN pip3 install debugpy --break-system-packages
 
 # Final setup
 USER odoo

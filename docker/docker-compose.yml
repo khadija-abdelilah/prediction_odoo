@@ -4,15 +4,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        - ODOO_COMMIT=${ODOO_COMMIT}
-        - BASE_IMAGE_REF=${BASE_IMAGE_REF:?Please set ODOO_VERSION in .env file}
-        - CFG_FILE=config/odoo.conf
-    entrypoint: [ "/bin/bash", "entrypoint.sh" ]
-    command: server/odoo-bin -c config/odoo.conf ${ODOO_ARGS}
     environment:
+      - BASE_IMAGE_REF=${BASE_IMAGE_REF:?Please set ODOO_VERSION in .env file}
       - SERVER_WIDE_MODULES=${SERVER_WIDE_MODULES}
-      - CFG_FILE=config/odoo.conf
       - ODOO_ARGS=${ODOO_ARGS}
     ports:
       - "8070:8069"
@@ -25,8 +19,16 @@ services:
       - ../dija-addons:/opt/odoo/dija-addons:ro
       - ../server:/opt/odoo/server:ro
       - ../test-addons:/opt/odoo/test-addons:ro
+      - ../smile-addons:/opt/odoo/smile-addons:ro
       - ../upgrades:/opt/odoo/upgrades:ro
       - odoo_data:/var/lib/odoo:rw
+    entrypoint:
+      - "python3"
+      - "-m"
+      - "debugpy"
+      - "--listen"
+      - "0.0.0.0:5678"
+    command: server/odoo-bin -c config/odoo.conf --load ${SERVER_WIDE_MODULES:-base,web,smile_upgrade} ${ODOO_ARGS}
     depends_on:
       db:
         condition: service_healthy
@@ -40,7 +42,7 @@ services:
     container_name: dija-db
     image: postgres:14
     ports:
-      - 5438:5432
+      - "5440:5432"
     environment:
       - POSTGRES_USER=odoo
       - POSTGRES_PASSWORD=odoo
@@ -56,8 +58,8 @@ services:
   mailcatcher:
     image: dockage/mailcatcher:0.8.2
     ports:
+      - "2086:2080"
 
-    - "1084:1080"
 volumes:
   odoo_data:
   data_postgres:

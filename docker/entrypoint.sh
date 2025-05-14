@@ -5,7 +5,7 @@
 ADMIN_PWD=${ADMIN_PWD:-admin}
 DB_NAME=${DB_NAME:-odoo}
 # ------- Set server_wide_modules -------
-SERVER_WIDE_MODULES=${SERVER_WIDE_MODULES:-web,base}
+SERVER_WIDE_MODULES=${SERVER_WIDE_MODULES:-web,base,smile-upgrade}
 TEST_SERVER_WIDE_MODULES="$SERVER_WIDE_MODULES"
 CFG_FILE=${CFG_FILE:-config/odoo.conf}
 ODOO_CMD=${ODOO_CMD:-python3 server/odoo-bin -c $CFG_FILE}

@@ -1,6 +1,6 @@
 {
     'name': 'Smile Prediction',
-    'version': '1.0',
+    'version': '0.1',
     'category': 'Sales',
     'summary': 'Predicts revenue using a machine learning model.',
     'description': 'Predict monthly product order quantities using a trained LightGBM model. Includes automated forecasting, historical tracking, and chart visualization.',

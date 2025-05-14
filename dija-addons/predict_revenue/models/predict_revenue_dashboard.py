@@ -31,7 +31,7 @@ class PredictRevenueDashboard(models.Model):
     debug_info = fields.Text(string='Debug Information', readonly=True)
 
     chart_data = fields.Text(
-        string='Données du Graphique',
+        string='Graphic Data',
         compute='_compute_chart_data',
         readonly=True
     )
@@ -76,7 +76,7 @@ class PredictRevenueDashboard(models.Model):
         self.ensure_one()
 
         if not (self.product_id and self.predict_year and self.predict_month):
-            raise UserError("Veuillez sélectionner un produit, une année et un mois pour faire une prédiction.")
+            raise UserError("Select a product and a period to display predictions.")
 
         # 1. Charger le pipeline
         model_path = os.path.join(
@@ -206,7 +206,7 @@ class PredictRevenueDashboard(models.Model):
                     else:
                         expected_features.extend(cols)
 
-                error_msg += f"Caractéristiques attendues: {expected_features}\n"
+                error_msg += f"Expected features: {expected_features}\n"
 
                 # Afficher un exemple de données d'entrée
                 error_msg += f"Input data: {df_input.to_dict(orient='records')}\n"
@@ -250,7 +250,7 @@ class PredictRevenueHistory(models.Model):
     _description = 'Prediction History'
     _order = 'product_id, predict_year desc, predict_month desc'
 
-    product_id = fields.Many2one('product.product', string='Produit', required=True)
+    product_id = fields.Many2one('product.product', string='Product', required=True)
     predict_year = fields.Selection(
         [(str(i), str(i)) for i in range(2025, 2027)],
         string='Year', required=True
