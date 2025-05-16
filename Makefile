@@ -46,7 +46,7 @@ start_with_debug:
 
 shell:
 	$(CMD) up -d \
-	&& $(CMD) exec odoo server/odoo-bin shell -c config/odoo-dev.conf
+	&& $(CMD) exec odoo server/odoo-bin shell -c config/odoo.conf
 
 start:
 	$(CMD) up -d && docker attach $(ODOO_CONTAINER)

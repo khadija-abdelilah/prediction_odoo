@@ -19,7 +19,7 @@
                                 <field name="predict_month" />
                             </group>
                             <div class="d-flex justify-content-center mt-3">
-                                <button name="predict_revenue" string="Prédire" type="object"
+                                <button name="predict_revenue" string="Predict" type="object"
                                         class="btn btn-primary" icon="fa-calculator"/>
                             </div>
                             <field name="predicted_revenue" widget="float" readonly="1"
@@ -52,7 +52,7 @@
                     <!-- Help Text -->
                     <div class="alert alert-info mt-4" role="alert">
                         <i class="fa fa-info-circle me-2" title="Information icon"></i>
-                        <strong>How to use:</strong> Select a product, a year, and a month, then click on the "Prédire" button to get a prediction.
+                        <strong>How to use:</strong> Select a product, a year, and a month, then click on the "Predict" button to get a prediction.
                         Previous predictions for this product are displayed in the graph.
                     </div>
                 </sheet>
